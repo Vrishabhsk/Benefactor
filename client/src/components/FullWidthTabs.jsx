@@ -109,7 +109,9 @@ export default function FullWidthTabs() {
         if (res.data === "Not Authorized") {
           toast.warning("Session Ended Login Again");
         } else {
-          setTasks(res.data);
+          if (res.data !== undefined) {
+            setTasks(res.data);
+          }
         }
       })
       .catch((err) => {});
@@ -120,7 +122,9 @@ export default function FullWidthTabs() {
       if (res.data === "Not Authorized") {
         toast.warning("Session Ended Login Again");
       } else {
-        setSubs(res.data);
+        if (res.data !== undefined) {
+          setSubs(res.data);
+        }
       }
     });
   }
@@ -130,7 +134,9 @@ export default function FullWidthTabs() {
       if (res.data === "Not Authorized") {
         toast.warning("Session Ended Login Again");
       } else {
-        setSubs_Att(res.data);
+        if (res.data !== undefined) {
+          setSubs_Att(res.data);
+        }
       }
     });
   }
