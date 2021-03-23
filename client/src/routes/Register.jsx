@@ -37,7 +37,7 @@ function Register({ setAuth }) {
       setAuth(false);
     } else {
       axios
-        .post("https://the-benefactor.herokuapp.com/registerUser", {
+        .post("/registerUser", {
           username: user.username,
           email: user.email,
           password: user.password,
