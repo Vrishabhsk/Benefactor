@@ -83,7 +83,7 @@ export default function FullWidthTabs() {
     if (value === 0) getTasks();
     if (value === 1) getSubs();
     if (value === 2) getAtt();
-  });
+  },[value]);
 
   function getId() {
     axios
