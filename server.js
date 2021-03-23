@@ -309,11 +309,6 @@ app.delete("/delete/:sub", (req, res) => {
 });
 //----------------------------------------------------------------------------------------------------------------------------
 
-//catchall
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
-});
-
 //port
 app.listen(PORT, () => {
   console.log(`server started on ${PORT}`);
