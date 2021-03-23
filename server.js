@@ -82,26 +82,23 @@ app.get("/dash", auth, async (req, res) => {
 //adding a new task
 app.post("/newTask", async (req, res) => {
   const { user_id, sub, des } = req.body;
-  try {
-    const result = await pool.query(
-      "INSERT INTO tasks (user_id,sub,des) VALUES ($1,$2,$3) RETURNING *",
-      [user_id, sub, des],
-    );
-    if (result) res.json("New Task Added");
-  } catch (error) {
-    if (error) res.json("Not Authorized");
-  }
+  pool.query(
+    "INSERT INTO tasks (user_id,sub,des) VALUES ($1,$2,$3) RETURNING *",
+    [user_id, sub, des],
+    (err, result) => {
+      if (error) res.json("Not Authorized");
+      if (result) res.json("New Task Added");
+    },
+  );
 });
 
 //sending all the tasks
 app.get("/getTask/:id", async (req, res) => {
   const id = req.params.id;
-  try {
-    const task = await pool.query("SELECT * FROM tasks WHERE user_id=$1", [id]);
-    if (task) res.json(task.rows);
-  } catch (err) {
+  pool.query("SELECT * FROM tasks WHERE user_id=$1", [id], (err, task) => {
     if (err) res.json("Not Authorized");
-  }
+    if (task) res.json(task.rows);
+  });
 });
 
 //sending a single task
