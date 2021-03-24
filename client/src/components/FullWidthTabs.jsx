@@ -79,13 +79,12 @@ export default function FullWidthTabs(props) {
   const [id, setId] = useState("");
 
   useEffect(() => {
-    setId = props.id;
+    setId(props.id);
     if (value === 0) getTasks();
     if (value === 1) getSubs();
     if (value === 2) getAtt();
   });
 
-  }
 
   function getTasks() {
     axios
