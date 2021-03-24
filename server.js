@@ -73,7 +73,7 @@ app.get("/verified", auth, (req, res) => {
 });
 
 //sending user_id to frontend
-app.get("/dash", auth, async (req, res) => {
+app.get("/dash", auth, (req, res) => {
   res.json(req.user);
 });
 
