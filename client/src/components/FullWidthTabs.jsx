@@ -93,7 +93,6 @@ export default function FullWidthTabs(props) {
         if (res.data === "Not Authorized") {
           toast.warning("Session Ended Login Again");
         } else {
-          console.log(res.data)
           if (res.data !== undefined) {
             setTasks(res.data);
           }

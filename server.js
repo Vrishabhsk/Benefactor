@@ -80,7 +80,7 @@ app.get("/dash", auth, (req, res) => {
 // ---------------------------------------------------- ASSIGNMENTS -------------------------------------------------
 
 //adding a new task
-app.post("/newTask", async (req, res) => {
+app.post("/newTask", (req, res) => {
   const { user_id, sub, des } = req.body;
   pool.query(
     "INSERT INTO tasks (user_id,sub,des) VALUES ($1,$2,$3) RETURNING *",
@@ -93,7 +93,7 @@ app.post("/newTask", async (req, res) => {
 });
 
 //sending all the tasks
-app.get("/getTask/:id", async (req, res) => {
+app.get("/getTask/:id", (req, res) => {
   const id = req.params.id;
   pool.query("SELECT * FROM tasks WHERE user_id=$1", [id], (err, task) => {
     if (err) res.json("Not Authorized");
