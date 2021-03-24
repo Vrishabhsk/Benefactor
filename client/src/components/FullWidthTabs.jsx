@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FullWidthTabs() {
+export default function FullWidthTabs(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -79,27 +79,12 @@ export default function FullWidthTabs() {
   const [id, setId] = useState("");
 
   useEffect(() => {
-    getId();
+    setId = props.id;
     if (value === 0) getTasks();
     if (value === 1) getSubs();
     if (value === 2) getAtt();
   });
 
-  function getId() {
-    axios
-      .get("/dash", {
-        headers: { token: localStorage.token },
-      })
-      .then((res) => {
-        if (res.data === "Not Authorized") {
-          toast.warning("Session Ended Login Again");
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 10000);
-        } else {
-          setId(res.data);
-        }
-      });
   }
 
   function getTasks() {
