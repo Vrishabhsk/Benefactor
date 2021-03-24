@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#393232",
     margin: "auto",
     width: "60%",
-    ["@media (max-width: 420px)"]: { // eslint-disable-line no-useless-computed-key
+    ["@media (max-width: 420px)"]: {  // eslint-disable-line no-useless-computed-key
       width: "98%",
     },
     height: "100%",
@@ -72,71 +72,75 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthTabs() {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
   const [tasks, setTasks] = useState([]);
   const [subs, setSubs] = useState([]);
   const [subs_att, setSubs_Att] = useState([]);
   const [id, setId] = useState("");
 
   useEffect(() => {
-    const getId = async () => {
-      const { data } = await axios.get("/dash", {
-        headers: { token: localStorage.token },
-      });
-      console.log("Received data from /dash", data);
-
-      if (data === "Not Authorized") {
-        toast.warning("Session Ended Login Again");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 10000);
-      } else {
-        setId(data);
-      }
-    };
-
-    const getTasks = async () => {
-      const { data } = await axios.get(`/getTask/${id}`);
-      console.log(`Received data from /getTask/${id}`, data);
-
-      if (data === "Not Authorized") {
-        toast.warning("Session Ended Login Again");
-      } else {
-        setTasks(data);
-      }
-    };
-
-    const getSubs = async () => {
-      const { data } = await axios.get(`/getSubs/${id}`);
-      console.log(`Received data from /getTask/${id}`, data);
-
-      if (data === "Not Authorized") {
-        toast.warning("Session Ended Login Again");
-      } else {
-        setSubs(data);
-      }
-    };
-
-    const getAtt = async () => {
-      const { data } = await axios.get(`/getAtt/${id}`);
-      console.log(`Received data from /getTask/${id}`, data);
-
-      if (data === "Not Authorized") {
-        toast.warning("Session Ended Login Again");
-      } else {
-        setSubs_Att(data);
-      }
-    };
-
     getId();
     if (value === 0) getTasks();
     if (value === 1) getSubs();
     if (value === 2) getAtt();
   });
 
-  useEffect(() => {
-    console.log("state changed", tasks, subs, subs_att);
-  }, [tasks, subs, subs_att]);
+  function getId() {
+    axios
+      .get("/dash", {
+        headers: { token: localStorage.token },
+      })
+      .then((res) => {
+        if (res.data === "Not Authorized") {
+          toast.warning("Session Ended Login Again");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 10000);
+        } else {
+          setId(res.data);
+        }
+      });
+  }
+
+  function getTasks() {
+    axios
+      .get(`/getTask/${id}`)
+      .then((res) => {
+        if (res.data === "Not Authorized") {
+          toast.warning("Session Ended Login Again");
+        } else {
+          console.log(res.data)
+          if (res.data !== undefined) {
+            setTasks(res.data);
+          }
+        }
+      })
+      .catch((err) => {});
+  }
+
+  function getSubs() {
+    axios.get(`/getSubs/${id}`).then((res) => {
+      if (res.data === "Not Authorized") {
+        toast.warning("Session Ended Login Again");
+      } else {
+        if (res.data !== undefined) {
+          setSubs(res.data);
+        }
+      }
+    });
+  }
+
+  function getAtt() {
+    axios.get(`/getAtt/${id}`).then((res) => {
+      if (res.data === "Not Authorized") {
+        toast.warning("Session Ended Login Again");
+      } else {
+        if (res.data !== undefined) {
+          setSubs_Att(res.data);
+        }
+      }
+    });
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
