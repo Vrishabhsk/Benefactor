@@ -86,7 +86,7 @@ app.post("/newTask", (req, res) => {
     "INSERT INTO tasks (user_id,sub,des) VALUES ($1,$2,$3) RETURNING *",
     [user_id, sub, des],
     (err, result) => {
-      if (error) res.json("Not Authorized");
+      if (err) res.json("Not Authorized");
       if (result) res.json("New Task Added");
     },
   );
