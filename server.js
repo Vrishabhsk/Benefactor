@@ -182,10 +182,10 @@ app.get("/getExamInfo/:sub", (req, res) => {
 
 //update exam details
 app.put("/updateInfo", (req, res) => {
-  const { prev_name, exam_name, max_marks, scored } = req.body;
+  const { prev_name, exam_name, max_marks, scored, sub } = req.body;
   pool.query(
-    "UPDATE exams SET exam_name=$1,max_marks=$2,scored=$3 WHERE exam_name=$4",
-    [exam_name, max_marks, scored, prev_name],
+    "UPDATE exams SET exam_name=$1,max_marks=$2,scored=$3 WHERE sub=$4 AND exam_name=$5",
+    [exam_name, max_marks, scored, sub, prev_name],
     (err, result) => {
       if (err) throw err;
       if (result) res.json("Exam Info Updated");

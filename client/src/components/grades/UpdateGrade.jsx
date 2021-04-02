@@ -32,6 +32,7 @@ export default function UpdateGrade(props) {
       axios
         .put("/updateInfo", {
           prev_name: props.exam.exam_name,
+          sub: props.sub,
           exam_name: exam.exam_name,
           max_marks: exam.max_marks,
           scored: exam.scored,
