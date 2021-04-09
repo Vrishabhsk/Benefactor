@@ -310,6 +310,7 @@ app.delete("/delete/:sub", (req, res) => {
 //----------------------------------------------------------------------------------------------------------------------------
 
 //catch-all method for client side rendering
+
 app.get("/*", (req, res) => {
   try {
     res.sendFile(path.join(__dirname, "client/build/index.html"));

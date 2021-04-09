@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#393232",
     margin: "auto",
     width: "60%",
-    ["@media (max-width: 420px)"]: {  // eslint-disable-line no-useless-computed-key
+    ["@media (max-width: 420px)"]: {
+      // eslint-disable-line no-useless-computed-key
       width: "98%",
     },
     height: "100%",
@@ -85,20 +86,21 @@ export default function FullWidthTabs(props) {
     if (value === 2) getAtt();
   });
 
-
   function getTasks() {
-    axios
-      .get(`/getTask/${id}`)
-      .then((res) => {
-        if (res.data === "Not Authorized") {
-          toast.warning("Session Ended Login Again");
-        } else {
-          if (res.data !== undefined) {
-            setTasks(res.data);
+    if (id !== "") {
+      axios
+        .get(`/getTask/${id}`)
+        .then((res) => {
+          if (res.data === "Not Authorized") {
+            toast.warning("Session Ended Login Again");
+          } else {
+            if (res.data !== undefined) {
+              setTasks(res.data);
+            }
           }
-        }
-      })
-      .catch((err) => {});
+        })
+        .catch((err) => {});
+    }
   }
 
   function getSubs() {
