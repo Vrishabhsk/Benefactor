@@ -95,7 +95,7 @@ function Register({ setAuth }) {
         />
         <br />
         <br />
-        <StyledButton size="large" margin="10px 0px 0px 170px" text="Register" onClick={registerUser} />
+        <StyledButton size="large"  text="Register" onClick={registerUser} />
       </form>
     </div>
   );

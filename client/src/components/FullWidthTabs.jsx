@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Work from "./Work";
 import axios from "axios";
@@ -55,8 +56,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#393232",
     margin: "auto",
     width: "60%",
-    ["@media (max-width: 420px)"]: {
-      // eslint-disable-line no-useless-computed-key
+    ["@media (max-width: 420px)"]: { // eslint-disable-line no-useless-computed-key
       width: "98%",
     },
     height: "100%",

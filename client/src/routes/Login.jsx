@@ -6,6 +6,7 @@ import Text from "../components/Text";
 import StyledButton from "../components/StyledButton";
 
 function Login({ setAuth }) {
+
   const [login, setLogin] = useState({
     username: "",
     password: "",
@@ -68,7 +69,7 @@ function Login({ setAuth }) {
         />
         <br />
         <br />
-        <StyledButton size="large" margin="10px 0px 0px 170px" text="Login" onClick={handleSubmit} />
+        <StyledButton size="large" text="Login" onClick={handleSubmit} />
       </form>
     </div>
   );
